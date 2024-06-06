@@ -7,7 +7,8 @@ class Game:
         self.state = initial_state if initial_state else '.' * (self.silos * 3)
         self.evaluation_cache = {}
         self.max_depth = 15
-        self.depth_trigger = 12
+        self.heuristic_max_depth = 6
+        self.depth_trigger = 3
         self.count = 0
 
     def get_moves(self):
@@ -44,6 +45,9 @@ class Game:
         return score
 
     def heuristic_search(self, depth, team):
+        if depth > self.heuristic_max_depth:
+            return [], -sys.maxsize if team == 'red' else sys.maxsize
+
         best_moves = []
         best_score = -sys.maxsize if team == 'red' else sys.maxsize
         
@@ -64,10 +68,6 @@ class Game:
     
     def heuristic_evaluation(self, team):
         score = self.state.count('R') * 30 if team == 'red' else self.state.count('B') * 30
-
-        # can add more heuristic evaluations here
-        # if self.state[0] == 'R':
-        #     score += 12345678 # debug
 
         for team_char in ['R', 'B']:
             for sub in [self.state[i*3:i*3+3] for i in range(self.silos)]:
@@ -92,10 +92,8 @@ class Game:
 
         if depth <= self.max_depth - self.depth_trigger:
             heuristic_moves, heuristic_score = self.heuristic_search(depth, team)
-            for move in heuristic_moves:
-                if parent_state not in decision_map:
-                    decision_map[parent_state] = []
-                decision_map[parent_state].append(move)
+            if parent_state not in decision_map and heuristic_moves:
+                decision_map[parent_state] = heuristic_moves
 
         best_value = -sys.maxsize if team == 'red' else sys.maxsize
         best_moves = []
@@ -113,7 +111,8 @@ class Game:
                 best_moves.append(move)
 
         self.evaluation_cache[cache_key] = best_value
-        decision_map[parent_state] = best_moves
+        if parent_state not in decision_map and best_moves:
+            decision_map[parent_state] = best_moves
 
         self.count += 1
         print(f"No: {self.count}, State: {parent_state}, Best moves: {decision_map[parent_state] if parent_state in decision_map else None}, Best Value: {best_value}")
