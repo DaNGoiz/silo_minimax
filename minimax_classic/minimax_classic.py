@@ -100,7 +100,7 @@ class Game:
         self.evaluation_cache[cache_key] = best_value
 
         self.count += 1
-        if self.count % 100000 == 0:
+        if self.count % 10000 == 0:
             print(f"No: {self.count}, State: {parent_state}, Best moves: {decision_map[parent_state] if parent_state in decision_map else None}, Best Value: {best_value}")
 
         return best_value

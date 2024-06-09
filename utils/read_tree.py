@@ -25,7 +25,7 @@ def get_input(decision_map):
         print(best_place_index(input(), decision_map))
 
 if __name__ == '__main__':
-    decision_map = load_decision_map('decision_map_heuristic_output.pkl')
+    decision_map = load_decision_map('decision_map_classic.pkl')
 
     # 1. output best place index
     # current_state = '...............'
@@ -39,5 +39,5 @@ if __name__ == '__main__':
     # get_input(decision_map)
 
     # 4. save decision map to txt
-    txt_file_name = 'decision_map_heuristic_output.txt'
-    save_decision_map_to_txt(decision_map, txt_file_name)
+    # txt_file_name = 'decision_map_classic_output.txt'
+    # save_decision_map_to_txt(decision_map, txt_file_name)
