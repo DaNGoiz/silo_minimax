@@ -1,4 +1,5 @@
 import pickle
+import json
 
 def load_decision_map(file_name):
     with open(file_name, 'rb') as file:
@@ -41,3 +42,12 @@ if __name__ == '__main__':
     # 4. save decision map to txt
     # txt_file_name = 'decision_map_classic_output.txt'
     # save_decision_map_to_txt(decision_map, txt_file_name)
+
+    # 5. save decisino map to json
+    # with open('decision_map_classic.json', 'w') as file:
+    #     json.dump(decision_map, file)
+    
+    # 6. read single state from json
+    # with open('decision_map_classic.json', 'r') as file:
+    #     data = json.load(file)
+    #     print(data['R..B...........'])

@@ -58,10 +58,12 @@ class Game:
                 "RR.": +5,
                 "RBR": +10,
                 "BRR": +10,
+                "RRR": +10,
                 "BBR": +0,
                 "BB.": -5,
                 "RBB": -10,
                 "BRB": -10,
+                "BBB": -10,
             }
             for silo in [self.state[i*3:i*3+3] for i in range(self.silos)]:
                 if silo in silo_state_score_map.keys():
